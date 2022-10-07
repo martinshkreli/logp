@@ -12,7 +12,11 @@ function Inputsmiles(props) {
 
   const handleInputChange = (e) => {
     setValue(e.target.value);
-    setLogPResult((Math.round(100 * Math.random())/100));
+    let logprequest = e.target.value
+    fetch(`https://logpcalculator.herokuapp.com/api/{logprequest}`)
+    .then((response) => response.json())
+    .then((data) => console.log(data));
+    setLogPResult(data.logP);
     setValue(logpresult);
   }
 
