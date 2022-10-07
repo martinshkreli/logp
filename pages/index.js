@@ -1,23 +1,39 @@
 import Head from 'next/head'
 import Header from '@components/Header'
-import Footer from '@components/Footer'
+import {useState} from 'react'
+
 
 export default function Home() {
+
+function Inputsmiles(props) {
+
+  const [value, setValue] = useState("");
+  const [logpresult, setLogPResult] = useState(0);
+
+  const handleInputChange = (e) => {
+    setValue(e.target.value);
+    setLogPResult((Math.round(100 * Math.random())/100));
+    setValue(logpresult);
+  }
+
+  return (
+    <div>
+      <input placeholder="Enter SMILES" onChange={handleInputChange}></input>
+        <p>Predicted logP: {logpresult}</p>
+    </div>
+    )
+}
+
   return (
     <div className="container">
       <Head>
         <title>logP calculator</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <Header title="Welcome to my app!" />
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
-      </main>
-
-      <Footer />
+        <Header title="logP calculator" />
+        <Inputsmiles type="text"></Inputsmiles>
+      </main>      
     </div>
   )
 }
