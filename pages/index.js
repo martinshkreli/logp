@@ -1,8 +1,6 @@
 import Head from 'next/head'
 import Header from '@components/Header'
 import {useState} from 'react'
-
-
 export default function Home() {
 
 function Inputsmiles(props) {
@@ -13,11 +11,18 @@ function Inputsmiles(props) {
   const handleInputChange = (e) => {
     setValue(e.target.value);
     let logprequest = e.target.value
-    fetch(`https://logpcalculator.herokuapp.com/api/{logprequest}`)
+
+   fetch(`https://logpcalculator.herokuapp.com/api/${logprequest}`, {
+      'Access-Control-Allow-Origin': 'https://heroku.com'
+    })
     .then((response) => response.json())
-    .then((data) => console.log(data));
-    setLogPResult(data.logP);
-    setValue(logpresult);
+    .then((response) => {
+      let logpstring = (response[0]);
+      logpstring = parseFloat(logpstring.substring(5),10)
+      console.log(logpstring);
+      setLogPResult(logpstring);
+      setValue(logpstring);
+    })
   }
 
   return (
